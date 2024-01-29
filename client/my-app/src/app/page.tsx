@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
   return (
     <main className="flex min-h-screen flex-col items-center  p-24">
-      <h1>Welcome</h1>
+      <h1>The Subliminals</h1>
       {isAuth ? <Logout setIsAuth={setIsAuth} /> : <AuthForm setIsAuth={setIsAuth} />}
     </main>
   );

@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const account_sign_in = async (req, res, next) => {
   const user = await User.findOne({ username: req.body.username });
   if (!user) {
-    return res.json({ message: "Username was not found in DB" });
+    return res.json({ message: "Username does not exist, create an account instead?" });
   }
   try {
     const match = await bcrypt.compare(req.body.password, user.password);
@@ -36,7 +36,7 @@ const account_sign_in = async (req, res, next) => {
       };
       res.json({ success: true, userInfo, accessToken });
     } else {
-      res.json({ message: "Invalid Credentials" });
+      res.json({ message: "Incorrect Username or Password" });
     }
   } catch (error) {
     next(error);

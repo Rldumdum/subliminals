@@ -26,8 +26,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import SignUpForm from "./SignUpForm";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -39,7 +41,11 @@ const formSchema = z.object({
 });
 
 const AuthForm = ({ setIsAuth }: any) => {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+  });
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState<any>(null);
 
   const modalOpen = () => {
     setIsOpen(true);
@@ -47,10 +53,6 @@ const AuthForm = ({ setIsAuth }: any) => {
   const modalClose = () => {
     setIsOpen(false);
   };
-
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-  });
 
   const onSubmit = async (data: any) => {
     const { username, password } = data;
@@ -62,9 +64,7 @@ const AuthForm = ({ setIsAuth }: any) => {
         },
         body: JSON.stringify({ username, password }),
       });
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      }
+
       const data = await res.json();
 
       Cookies.set("Authorization", `Bearer ${data.accessToken}`);
@@ -73,6 +73,7 @@ const AuthForm = ({ setIsAuth }: any) => {
       } else {
         setIsAuth(false);
       }
+      setData(data);
       return data;
     };
     fetchData();
@@ -92,7 +93,7 @@ const AuthForm = ({ setIsAuth }: any) => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder="JohnDoe" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -107,6 +108,9 @@ const AuthForm = ({ setIsAuth }: any) => {
                 <FormControl>
                   <Input type="password" placeholder="********" {...field} />
                 </FormControl>
+                <FormDescription className="justify-center flex text-red-500">
+                  {data ? data.message : ""}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -124,22 +128,18 @@ const AuthForm = ({ setIsAuth }: any) => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <button onClick={modalClose}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
+        <SignUpForm
+          modalClose={modalClose}
+          setIsAuth={setIsAuth}
+          setData={setData}
+        />
       </Modal>
-      <div className="flex-row flex mt-2">
+      <div className="flex-row flex mt-2 w-full justify-between">
         <button
           onClick={() => {
             modalOpen();
           }}
-          className="w-full text-black bg-white hover:bg-white text-sm flex justify-start"
+          className=" text-black bg-red-white hover:bg-white text-sm flex "
         >
           Forgot Password?
         </button>
@@ -147,7 +147,7 @@ const AuthForm = ({ setIsAuth }: any) => {
           onClick={() => {
             modalOpen();
           }}
-          className="w-full text-black bg-white hover:bg-white text-sm flex justify-end"
+          className=" text-black bg-white hover:bg-white teat-sm flex "
         >
           Create An Account
         </button>
