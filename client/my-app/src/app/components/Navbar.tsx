@@ -1,7 +1,7 @@
 "use client";
 import { CircleUserRound } from "lucide-react";
 import "../styles/navBar.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -11,9 +11,11 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 import Logout from "./Logout";
+import { AppContext } from "../store/app-context";
 
-const NavBar = ({ isAuth, setIsAuth }: any) => {
+const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);
+  const { isAuth, setIsAuth } = useContext(AppContext);
 
   const smallNavHandler = () => {
     setOpenNav((prevNav) => !prevNav);
@@ -35,14 +37,14 @@ const NavBar = ({ isAuth, setIsAuth }: any) => {
           {"SUBLIMINALS"}
         </Link>
         <ul>
-          <li className="mx-5">
+          {/* <li className="mx-5">
             <h1 className="cursor-pointer">Discover</h1>
           </li>
           <li className="mx-5">
             <h1 className="cursor-pointer">Upgrade</h1>
-          </li>
+          </li> */}
           {isAuth ? (
-            <Dropdown >
+            <Dropdown>
               <DropdownTrigger>
                 <Button variant="bordered" className="rounded-full mx-5">
                   <CircleUserRound size={34} />
@@ -63,7 +65,7 @@ const NavBar = ({ isAuth, setIsAuth }: any) => {
                   className=" border-black bg-red-500 text-white justify-center mt-2 flex border-2 rounded-xl text-center items-center"
                   color="danger"
                 >
-                  <Logout setIsAuth={setIsAuth}/>
+                  <Logout setIsAuth={setIsAuth} />
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>

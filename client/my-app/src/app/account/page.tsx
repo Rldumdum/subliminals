@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Forms from "../components/Forms";
 import NavBar from "../components/Navbar";
 import Cookies from "js-cookie";
+import { AppContext } from "../store/app-context";
 
 const Authorization = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const { isAuth, setIsAuth } = useContext(AppContext);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("http://localhost:3001/api/account/verify", {
@@ -28,7 +29,7 @@ const Authorization = () => {
   }, []);
   return (
     <>
-      <NavBar isAuth={isAuth} setIsAuth={setIsAuth}/>
+      <NavBar />
       <main className="flex min-h-screen flex-col items-center  p-24">
         {!isAuth && <Forms setIsAuth={setIsAuth} />}
       </main>
