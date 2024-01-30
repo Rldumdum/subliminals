@@ -4,18 +4,6 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Modal from "react-modal";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
 
 import {
   Form,
@@ -29,7 +17,6 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import SignUpForm from "./SignUpForm";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -40,19 +27,11 @@ const formSchema = z.object({
   }),
 });
 
-const AuthForm = ({ setIsAuth }: any) => {
+const AuthForm = ({ setIsAuth, modalOpen }: any) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
-  const [modalIsOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<any>(null);
-
-  const modalOpen = () => {
-    setIsOpen(true);
-  };
-  const modalClose = () => {
-    setIsOpen(false);
-  };
 
   const onSubmit = async (data: any) => {
     const { username, password } = data;
@@ -80,79 +59,69 @@ const AuthForm = ({ setIsAuth }: any) => {
   };
 
   return (
-    <div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit((e) => onSubmit(e))}
-          className="space-y-4 w-96"
-        >
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="JohnDoe" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
-                </FormControl>
-                <FormDescription className="justify-center flex text-red-500">
-                  {data ? data.message : ""}
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <>
+      <div>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit((e) => onSubmit(e))}
+            className="space-y-4 w-96"
+          >
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Username" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="********" {...field} />
+                  </FormControl>
+                  <FormDescription className="justify-center flex text-red-500">
+                    {data ? data.message : ""}
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
+        </Form>
+        {/* modal */}
 
-          <Button type="submit" className="w-full">
-            Login
-          </Button>
-        </form>
-      </Form>
-      {/* modal */}
-
-      <Modal
-        isOpen={modalIsOpen}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <SignUpForm
-          modalClose={modalClose}
-          setIsAuth={setIsAuth}
-          setData={setData}
-        />
-      </Modal>
-      <div className="flex-row flex mt-2 w-full justify-between">
-        <button
-          onClick={() => {
-            modalOpen();
-          }}
-          className=" text-black bg-red-white hover:bg-white text-sm flex "
-        >
-          Forgot Password?
-        </button>
-        <button
-          onClick={() => {
-            modalOpen();
-          }}
-          className=" text-black bg-white hover:bg-white teat-sm flex "
-        >
-          Create An Account
-        </button>
+        <div className="flex-row flex mt-2 w-full justify-between">
+          <button
+            onClick={() => {
+              modalOpen();
+            }}
+            className=" text-slate-500 bg-red-white hover:bg-white text-sm flex "
+          >
+            Forgot Password?
+          </button>
+          <button
+            onClick={() => {
+              modalOpen();
+            }}
+            className=" text-black bg-white hover:bg-white text-sm flex "
+          >
+            Create An Account
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -48,8 +48,12 @@ const account_sign_up = async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       username: req.body.username,
       password: hashedPassword,
+      gender: req.body.gender,
+      birthday: req.body.birthday,
     });
     const savedUser = await user.save();
     return res.status(200).json(savedUser);

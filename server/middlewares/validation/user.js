@@ -1,6 +1,22 @@
 const { check, validationResult } = require("express-validator");
 
 const validateUserSignUp = [
+  check("firstName")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("First Name is required")
+    .isString()
+    .withMessage("First Name must be a string")
+    .isLength({ min: 2, max: 20 }),
+  check("lastName")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("Last Name is required")
+    .isString()
+    .withMessage("Last Name must be a string")
+    .isLength({ min: 2, max: 20 }),
   check("username")
     .trim()
     .not()
@@ -26,10 +42,25 @@ const validateUserSignUp = [
       }
       return true;
     }),
+  check("birthday")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("Birthday is Empty")
+    .isLength({ min: 3, max: 20 })
+    .withMessage("Birthday must not be empty"),
+  check("gender")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("gender is Empty")
+    .isLength({ min: 3, max: 20 })
+    .withMessage("gender must not be empty"),
 ];
 
 const userValidation = (req, res, next) => {
   const result = validationResult(req).array();
+  console.log(result);
   if (!result.length) return next();
 
   const error = result[0].msg;

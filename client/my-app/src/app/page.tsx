@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import AuthForm from "./components/AuthForm";
 import Logout from "./components/Logout";
 import Cookies from "js-cookie";
+import Forms from "./components/Forms";
 
 export default function Home() {
   const [isAuth, setIsAuth] = useState(false);
@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center  p-24">
       <h1>The Subliminals</h1>
-      {isAuth ? <Logout setIsAuth={setIsAuth} /> : <AuthForm setIsAuth={setIsAuth} />}
+      {isAuth ? <Logout setIsAuth={setIsAuth} /> : <Forms setIsAuth={setIsAuth} />}
     </main>
   );
 }
