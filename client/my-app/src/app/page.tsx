@@ -3,33 +3,17 @@ import { useEffect, useState } from "react";
 import Logout from "./components/Logout";
 import Cookies from "js-cookie";
 import Forms from "./components/Forms";
+import NavBar from "./components/Navbar";
 
 export default function Home() {
-  const [isAuth, setIsAuth] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("http://localhost:3001/api/account/verify", {
-        method: "POST",
-        headers: {
-          authorization: `${Cookies.get("Authorization")}`,
-        },
-      });
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data = await res.json();
-      if (data.success) {
-        setIsAuth(true);
-      } else {
-        setIsAuth(false);
-      }
-    };
-    fetchData();
-  }, []);
   return (
-    <main className="flex min-h-screen flex-col items-center  p-24">
-      <h1>The Subliminals</h1>
-      {isAuth ? <Logout setIsAuth={setIsAuth} /> : <Forms setIsAuth={setIsAuth} />}
-    </main>
+    <>
+      <NavBar />
+      <main className="flex min-h-screen flex-col items-center justify-center p-24">
+        <h1 className="text-5xl ">The Subliminals</h1>
+        <p className="text-2xl text-black m-10">Be something that you want but first, change the way your brain is wired </p>
+        <button className="p-5 bg-black text-white">Get Started</button>
+      </main>
+    </>
   );
 }

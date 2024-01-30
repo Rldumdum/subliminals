@@ -103,14 +103,14 @@ const AuthForm = ({ setIsAuth, modalOpen }: any) => {
         {/* modal */}
 
         <div className="flex-row flex mt-2 w-full justify-between">
-          <button
+          {/* <button
             onClick={() => {
               modalOpen();
             }}
             className=" text-slate-500 bg-red-white hover:bg-white text-sm flex "
           >
             Forgot Password?
-          </button>
+          </button> */}
           <button
             onClick={() => {
               modalOpen();

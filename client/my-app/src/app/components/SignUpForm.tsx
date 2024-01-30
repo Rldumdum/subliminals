@@ -95,6 +95,7 @@ const years = Array.from(
 
 const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
   const [data, setData] = useState<any>(null);
+  const [accountCreated, setAccountCreated] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -131,10 +132,19 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
       });
 
       const data = await res.json();
-      if(data){
+      if (data) {
         setIsSubmitting(false);
       }
       console.log(data);
+      if (data.username) {
+        setAccountCreated(true);
+        setTimeout(() => {
+          modalClose();
+        }, 2000)
+      }
+      else{
+        setAccountCreated(false);
+      }
 
       Cookies.set("Authorization", `Bearer ${data.accessToken}`);
       if (data.success) {
@@ -153,6 +163,9 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
       style={customStyles}
       contentLabel="Example Modal"
     >
+      <p className="text-green-800">
+        {accountCreated ? "Account has been successfully created!" : ""}
+      </p>
       <button onClick={modalClose} className=" flex ml-auto ">
         X
       </button>
@@ -332,7 +345,12 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
           />
           <Button type="submit" className="w-full ">
             {isSubmitting ? (
-              <Image src="/images/spinner.mov.gif" alt="spinner" width={50} height={50}  />
+              <Image
+                src="/images/spinner.mov.gif"
+                alt="spinner"
+                width={50}
+                height={50}
+              />
             ) : (
               "Create Account"
             )}

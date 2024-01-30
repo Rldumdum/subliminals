@@ -23,9 +23,9 @@ const Logout = ({setIsAuth}: any) => {
     <form onSubmit={(e) =>LogoutHandler(e)}>
       <button
         type="submit"
-        className="bg-red-500 text-white text-2xl p-2 text-bold rounded-md"
+        className=" py-2 px-8 "
       >
-        Logout
+        Log Out
       </button>
     </form>
   );
