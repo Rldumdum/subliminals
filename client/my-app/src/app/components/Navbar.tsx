@@ -1,7 +1,7 @@
 "use client";
 import { CircleUserRound } from "lucide-react";
 import "../styles/navBar.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -12,10 +12,31 @@ import {
 import Link from "next/link";
 import Logout from "./Logout";
 import { AppContext } from "../store/app-context";
+import Cookies from "js-cookie";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);
   const { isAuth, setIsAuth } = useContext(AppContext);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:3001/api/account/verify", {
+        method: "POST",
+        headers: {
+          authorization: `${Cookies.get("Authorization")}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await res.json();
+      if (data.success) {
+        setIsAuth(true);
+      } else {
+        setIsAuth(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const smallNavHandler = () => {
     setOpenNav((prevNav) => !prevNav);

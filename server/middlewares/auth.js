@@ -6,13 +6,14 @@ const isAuth = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     try {
       const decode = jwt.verify(token, process.env.TOKEN_SECRET);
-      const user = await User.findById(decode.user);
-
-      if (!user) {
-        return res.json({ success: false, message: "Unauthorized access!" });
+      if (decode) {
+        const user = await User.findById(decode.user);
+        if (!user) {
+          return res.json({ success: false, message: "Unauthorized access!" });
+        }
+        req.user = user;
       }
 
-      req.user = user;
       next();
     } catch (error) {
       if (error.name === "JsonWebTokenError") {

@@ -16,10 +16,10 @@ export default function Home() {
         <h1 className="text-5xl ">The Subliminals</h1>
         <p className="text-2xl text-black mt-10">
           Change how your brain is wired and be something that you want to
-          become
+          become.
         </p>
         <p className="text-2xl text-black mb-10">
-          Free 2 chapters of the "Subliminals"
+          Free 2 chapters on each of the "Subliminals"
         </p>
         <Link href="/get-started" className="p-5 bg-black text-white">
           Get Started

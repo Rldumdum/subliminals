@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const cloudinary = require("cloudinary");
 const Comment = require("../models/comment");
 
 const get_post = async (req, res, next) => {
