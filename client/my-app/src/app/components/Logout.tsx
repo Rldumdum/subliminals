@@ -1,7 +1,10 @@
-import { useState } from "react";
+"use client"
+import { useContext, useState } from "react";
 import Cookies from "js-cookie";
+import { AppContext } from "../store/app-context";
 
-const Logout = ({setIsAuth}: any) => {
+const Logout = () => {
+  const {isAuth, setIsAuth, setData} = useContext(AppContext);
   const LogoutHandler = async (e: any) => {
     e.preventDefault();
     const res = await fetch("http://localhost:3001/api/account/signOut", {
@@ -17,6 +20,7 @@ const Logout = ({setIsAuth}: any) => {
     if (data.success) {
       Cookies.remove("Authorization");
       setIsAuth(false);
+      setData([])
     }
   };
   return (

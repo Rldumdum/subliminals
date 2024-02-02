@@ -17,13 +17,13 @@ const data = [
     title: "Beauty",
     path: "/get-started/beauty",
     description: "Minmax your beauty",
-    image: "/images/600x400.svg",
+    image: "/images/beauty.jpg",
   },
   {
     title: "Mental Health",
     path: "/get-started/mental-health",
     description: "Develop your mental",
-    image: "/images/600x400.svg",
+    image: "/images/brain.jpg",
   },
 ];
 
@@ -43,7 +43,7 @@ const Getstarted = () => {
                 <CardDescription>{d.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Image src={d.image} alt={d.image} width={200} height={200} />
+                <Image className="rounded-2xl" src={d.image} alt={d.image} width={200} height={200} />
               </CardContent>
               <CardFooter>
                 <Link href={d.path}>

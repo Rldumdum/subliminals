@@ -19,7 +19,7 @@ export default function Home() {
           become.
         </p>
         <p className="text-2xl text-black mb-10">
-          Free 2 chapters on each of the "Subliminals"
+          A new way to change your life.
         </p>
         <Link href="/get-started" className="p-5 bg-black text-white">
           Get Started

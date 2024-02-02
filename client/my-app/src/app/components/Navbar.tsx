@@ -86,7 +86,7 @@ const NavBar = () => {
                   className=" border-black bg-red-500 text-white justify-center mt-2 flex border-2 rounded-xl text-center items-center"
                   color="danger"
                 >
-                  <Logout setIsAuth={setIsAuth} />
+                  <Logout />
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
