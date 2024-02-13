@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/get-started/[slug]/[chapterId].jsx", "src/app/get-started/[slug]/[chapterId].js", "src/app/get-started/[slug]/page.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/get-started/beauty/[chapterId].jsx", "src/app/get-started/beauty/[chapterId].js", "src/app/get-started/beauty/page.tsx"],
   "exclude": ["node_modules"]
 }

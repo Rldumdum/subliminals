@@ -6,6 +6,13 @@ import Forms from "./components/Forms";
 import NavBar from "./components/Navbar";
 import { AppContext } from "./store/app-context";
 import Link from "next/link";
+const tracks = [
+  {
+    url: "audio/Introduction.mp3",
+    title: "Introduction",
+    tags: ["house"],
+  },
+];
 
 export default function Home() {
   const { isAuth, setIsAuth } = useContext(AppContext);

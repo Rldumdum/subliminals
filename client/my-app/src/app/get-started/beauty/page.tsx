@@ -14,7 +14,7 @@ const Beauty = () => {
     if (data.length <= 0) {
       const fetchData = async () => {
         const response = await fetch(
-          "http://localhost:3001/api/assets/mental-health",
+          "http://localhost:3001/api/assets/beauty",
           {
             method: "GET",
             headers: {

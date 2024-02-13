@@ -6,9 +6,9 @@ const mongoose = require("mongoose");
 const postRoutes = require("./routes/postRoutes");
 const accountRoutes = require("./routes/accountRoutes");
 const assetsRoutes = require('./routes/assetsRoutes')
+const notesRoutes = require('./routes/notesRoutes')
 const cors = require("cors");
 const cloudinary = require("cloudinary");
-
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -16,7 +16,6 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUD_API_SECRET,
   secure: true,
 });
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,13 +33,17 @@ app.get('/assets', (req,res)=> {
 app.get("/account", (req, res, next) => {
   res.redirect("/account");
 });
-app.get("/", (req, res) => {
-  res.redirect("/posts");
-});
+app.get('notes', (req,res) => {
+  res.redirect('/notes')
+})
+// app.get("/", (req, res) => {
+//   res.redirect("/posts");
+// });
 
-app.use("/api/posts", postRoutes);
+// app.use("/api/posts", postRoutes);
 app.use("/api/account", accountRoutes);
 app.use("/api/assets", assetsRoutes);
+app.use("/api/notes", notesRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

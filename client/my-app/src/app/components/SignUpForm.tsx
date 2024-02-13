@@ -140,9 +140,8 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
         setAccountCreated(true);
         setTimeout(() => {
           modalClose();
-        }, 2000)
-      }
-      else{
+        }, 2000);
+      } else {
         setAccountCreated(false);
       }
 

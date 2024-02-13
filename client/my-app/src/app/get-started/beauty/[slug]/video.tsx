@@ -5,15 +5,21 @@ const VideoPlayer = ({ params }: { params: { slug: string } }) => {
   const { selected, setSelected, data } = useContext(AppContext);
 
   return (
-    <div className="flex justify-center mt-10">
+    <div>
       <video
         id="my-player"
-        className="video-js w-[1000px] h-full rounded-xl"
+        className="video-js w-[1000px] h-full"
         controls
         preload="auto"
         data-setup="{}"
       >
-        <source src={data[selected]?.url || 'http://res.cloudinary.com/dgmbiavwm/video/upload/v1706787057/Beauty_Videos/chapter-3_lgydugytfdhxwhvpa16pthbm2zvkboktcuhcabig.mp4'} type="video/mp4"></source>
+        <source
+          src={
+            data[selected]?.url ||
+            "http://res.cloudinary.com/dgmbiavwm/video/upload/v1706787057/Beauty_Videos/chapter-3_lgydugytfdhxwhvpa16pthbm2zvkboktcuhcabig.mp4"
+          }
+          type="video/mp4"
+        ></source>
         <p className="vjs-no-js">
           To view this video please enable JavaScript, and consider upgrading to
           a web browser that

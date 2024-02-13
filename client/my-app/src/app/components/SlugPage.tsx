@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 import VideoPlayer from "./VideoPlayer";
 const data1 = Array.from({ length: 10 }, (_, i) => i + 1);
 // const days = Array.from(Array(31).keys());A
-const SlugPage = ({tab}: any) => {
+const SlugPage = ({ tab }: any) => {
   const params = useParams();
   console.log(params);
   const { selected, setSelected, data, isAuth, setData } =
@@ -36,26 +36,27 @@ const SlugPage = ({tab}: any) => {
   } else {
     console.log("you don't have access to the data");
   }
-  let page: string = params.slug[0].split("-")[1];
+  let page: string = Array.isArray(params.slug)
+    ? params.slug[1]
+    : params.slug.split("-")[1];
   let pageNumber: number = parseInt(page);
   useEffect(() => setSelected(pageNumber - 2), []);
   return (
     <>
       <NavBar />
-      <main className="flex min-h-screen flex-col items-center  p-24">
+      <main className="flex  min-h-screen flex-col items-center  p-24">
         <h1 className="text-4xl">{tab.toUpperCase()}</h1>
-        <div className="bg-red-500 w-full h-20 grid grid-cols-6">
-          <div className="bg-blue-500 overflow-x-auto h-screen col-span-1">
-            <Link href={`/get-started/beauty/chapter-1`}>
+        <div className=" rounded-xl  w-full h-20 grid grid-cols-6">
+          <div className="bg-slate-200 p-2 rounded-tl-xl rounded-bl-xl overflow-x-auto h-screen col-span-1">
+            <Link href={`/get-started/${tab}/chapter-1`}>
               <div
                 className={
                   " rounded-full border-2 border-black my-2 px-2 py-3 cursor-pointer  " +
-                  (selected === -1  ? "bg-red-500 text-white" : "bg-orange-500")
+                  (selected === -1 ? "bg-red-500 text-white" : "bg-orange-500")
                 }
                 onClick={() => handleChapterClick(1)}
               >
                 <h1>Chapter: {1} </h1>
-                <h1>Chapter: {params.slug} </h1>
               </div>
             </Link>
             {!isAuth
@@ -65,7 +66,7 @@ const SlugPage = ({tab}: any) => {
                       key={d}
                       className=" rounded-full border-2 border-black my-2 px-2 py-3 cursor-pointer bg-slate-500  "
                     >
-                      <h1>Please Log In </h1>
+                      <h1>Please Log In To View...</h1>
                     </div>
                   );
                 })
@@ -76,7 +77,7 @@ const SlugPage = ({tab}: any) => {
                     .split("_")[0];
                   return (
                     <Link
-                      href={`/get-started/beauty/chapter-${chapter}`}
+                      href={`/get-started/${tab}/chapter-${chapter}`}
                       key={d.public_id}
                     >
                       <div
@@ -94,7 +95,7 @@ const SlugPage = ({tab}: any) => {
                   );
                 })}
           </div>
-          <div className="bg-green-500  col-span-4">
+          <div className="bg-slate-100 col-span-4">
             {selected < -1 ? (
               "To start with, please select a chapter"
             ) : (
