@@ -7,7 +7,7 @@ const Logout = () => {
   const {isAuth, setIsAuth, setData} = useContext(AppContext);
   const LogoutHandler = async (e: any) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:3001/api/account/signOut", {
+    const res = await fetch("http://subliminals_server_1/api/account/signOut", {
       method: "POST",
       headers: {
         authorization: `${Cookies.get("Authorization")}`,
