@@ -20,7 +20,7 @@ const SlugPage = ({ tab }: any) => {
     if (data.length <= 0) {
       const fetchData = async () => {
         const response = await fetch(
-          `http://localhost:3001/api/assets/${tab}`,
+          `http:/subliminals_server_1/api/assets/${tab}`,
           {
             method: "GET",
             headers: {

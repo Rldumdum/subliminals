@@ -115,7 +115,7 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
     setIsSubmitting(true);
 
     const fetchData = async () => {
-      const res = await fetch("http://localhost:3001/api/account/signUp", {
+      const res = await fetch("http://subliminals_server_1/api/account/signUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

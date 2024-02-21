@@ -19,7 +19,7 @@ const NavBar = () => {
   const { isAuth, setIsAuth } = useContext(AppContext);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://localhost:3001/api/account/verify", {
+      const res = await fetch("http://subliminals_server_1/api/account/verify", {
         method: "POST",
         headers: {
           authorization: `${Cookies.get("Authorization")}`,

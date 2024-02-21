@@ -36,7 +36,7 @@ const AuthForm = ({ setIsAuth, modalOpen }: any) => {
   const onSubmit = async (data: any) => {
     const { username, password } = data;
     const fetchData = async () => {
-      const res = await fetch("http://localhost:3001/api/account/signIn", {
+      const res = await fetch("http://subliminals_server_1/api/account/signIn", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
