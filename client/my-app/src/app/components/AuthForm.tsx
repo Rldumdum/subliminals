@@ -37,14 +37,18 @@ const AuthForm = ({ setIsAuth, modalOpen }: any) => {
   const onSubmit = async (data: any) => {
     const { username, password } = data;
     const fetchData = async () => {
-      const res = await axios.post("/api/account/signIn", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const res = await axios.post(
+        "/api/account/signIn",
+        { username, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      const data = res.data
+      const data =  res.data;
+      console.log({ data });
       Cookies.set("Authorization", `Bearer ${data.accessToken}`);
       if (data.success) {
         setIsAuth(true);
