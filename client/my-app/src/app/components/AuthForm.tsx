@@ -17,6 +17,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import axios from "axios";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -36,16 +37,14 @@ const AuthForm = ({ setIsAuth, modalOpen }: any) => {
   const onSubmit = async (data: any) => {
     const { username, password } = data;
     const fetchData = async () => {
-      const res = await fetch("http://subliminals_server_1/api/account/signIn", {
-        method: "POST",
+      const res = await axios.post("/api/account/signIn", {
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await res.json();
-
+      const data = res.data
       Cookies.set("Authorization", `Bearer ${data.accessToken}`);
       if (data.success) {
         setIsAuth(true);

@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { AppContext } from "@/app/store/app-context";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const data1 = Array.from({ length: 10 }, (_, i) => i + 1);
 const Beauty = () => {
@@ -13,16 +14,15 @@ const Beauty = () => {
   if (isAuth) {
     if (data.length <= 0) {
       const fetchData = async () => {
-        const response = await fetch(
-          "http://subliminals_server_1/api/assets/mental-health",
+        const response = await axios.get(
+          "/api/assets/mental-health",
           {
-            method: "GET",
             headers: {
               authorization: `${Cookies.get("Authorization")}`,
             },
           }
         );
-        const data = await response.json();
+        const data = response.data
         setData(data.response.resources);
       };
       fetchData();
