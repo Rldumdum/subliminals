@@ -2,21 +2,21 @@
 import { useContext, useState } from "react";
 import Cookies from "js-cookie";
 import { AppContext } from "../store/app-context";
+import axios from "axios";
 
 const Logout = () => {
   const {isAuth, setIsAuth, setData} = useContext(AppContext);
   const LogoutHandler = async (e: any) => {
     e.preventDefault();
-    const res = await fetch("http://subliminals_server_1/api/account/signOut", {
-      method: "POST",
+    const res = await axios.post("/api/account/signOut", {
       headers: {
         authorization: `${Cookies.get("Authorization")}`,
       },
     });
-    if (!res.ok) {
+    const data = res.data
+    if (!data.success) {
       throw new Error("Failed to fetch data");
     }
-    const data = await res.json();
     if (data.success) {
       Cookies.remove("Authorization");
       setIsAuth(false);

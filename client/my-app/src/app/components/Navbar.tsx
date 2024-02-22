@@ -13,22 +13,22 @@ import Link from "next/link";
 import Logout from "./Logout";
 import { AppContext } from "../store/app-context";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);
   const { isAuth, setIsAuth } = useContext(AppContext);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://subliminals_server_1/api/account/verify", {
-        method: "POST",
+      const res = await axios.post("/api/account/verify", {
         headers: {
           authorization: `${Cookies.get("Authorization")}`,
         },
       });
-      if (!res.ok) {
+      const data = res.data
+      if (!data.success) {
         throw new Error("Failed to fetch data");
       }
-      const data = await res.json();
       if (data.success) {
         setIsAuth(true);
       } else {

@@ -22,6 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Image from "next/image";
+import axios from "axios";
 const customStyles = {
   content: {
     top: "50%",
@@ -115,8 +116,7 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
     setIsSubmitting(true);
 
     const fetchData = async () => {
-      const res = await fetch("http://subliminals_server_1/api/account/signUp", {
-        method: "POST",
+      const res = await axios.post("/api/account/signUp", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -131,7 +131,7 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
         }),
       });
 
-      const data = await res.json();
+      const data = res.data
       if (data) {
         setIsSubmitting(false);
       }

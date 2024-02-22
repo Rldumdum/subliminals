@@ -6,6 +6,7 @@ import { AppContext } from "@/app/store/app-context";
 import Cookies from "js-cookie";
 import { useParams } from "next/navigation";
 import VideoPlayer from "./VideoPlayer";
+import axios from "axios";
 const data1 = Array.from({ length: 10 }, (_, i) => i + 1);
 // const days = Array.from(Array(31).keys());A
 const SlugPage = ({ tab }: any) => {
@@ -19,16 +20,15 @@ const SlugPage = ({ tab }: any) => {
   if (isAuth) {
     if (data.length <= 0) {
       const fetchData = async () => {
-        const response = await fetch(
-          `http:/subliminals_server_1/api/assets/${tab}`,
+        const response = await axios.get(
+          `/api/assets/${tab}`,
           {
-            method: "GET",
             headers: {
               authorization: `${Cookies.get("Authorization")}`,
             },
           }
         );
-        const data = await response.json();
+        const data = response.data
         setData(data.response.resources);
       };
       fetchData();
