@@ -116,11 +116,9 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
     setIsSubmitting(true);
 
     const fetchData = async () => {
-      const res = await axios.post("/api/account/signUp", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const res = await axios.post(
+        "/api/account/signUp",
+        {
           firstName,
           lastName,
           username,
@@ -128,10 +126,15 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
           confirmPassword,
           birthday: `${birthday_mm} ${birthday_dd} ${birthday_yyyy}`,
           gender,
-        }),
-      });
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      const data = res.data
+      const data = res.data;
       if (data) {
         setIsSubmitting(false);
       }
