@@ -5,10 +5,11 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const postRoutes = require("./routes/postRoutes");
 const accountRoutes = require("./routes/accountRoutes");
-const assetsRoutes = require('./routes/assetsRoutes')
-const notesRoutes = require('./routes/notesRoutes')
+const assetsRoutes = require("./routes/assetsRoutes");
+const notesRoutes = require("./routes/notesRoutes");
 const cors = require("cors");
 const cloudinary = require("cloudinary");
+const morgan = require("morgan");
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -19,6 +20,7 @@ cloudinary.v2.config({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -27,15 +29,15 @@ app.use(
 
 app.set("view engine", "ejs");
 
-app.get('/assets', (req,res)=> {
-  res.redirect('/assets')
-})
+app.get("/assets", (req, res) => {
+  res.redirect("/assets");
+});
 app.get("/account", (req, res, next) => {
   res.redirect("/account");
 });
-app.get('notes', (req,res) => {
-  res.redirect('/notes')
-})
+app.get("notes", (req, res) => {
+  res.redirect("/notes");
+});
 // app.get("/", (req, res) => {
 //   res.redirect("/posts");
 // });
@@ -44,6 +46,11 @@ app.get('notes', (req,res) => {
 app.use("/api/account", accountRoutes);
 app.use("/api/assets", assetsRoutes);
 app.use("/api/notes", notesRoutes);
+
+app.use((err, req, res, next) => {
+  // console.log(err);
+  res.json({ message: err.message });
+});
 
 mongoose
   .connect(process.env.MONGO_URI)
