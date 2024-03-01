@@ -20,12 +20,16 @@ const NavBar = () => {
   const { isAuth, setIsAuth } = useContext(AppContext);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.post("/api/account/verify", {
-        headers: {
-          authorization: `${Cookies.get("Authorization")}`,
-        },
-      });
-      const data = res.data
+      const res = await axios.post(
+        "http://localhost:3001/api/account/verify",
+        {},
+        {
+          headers: {
+            authorization: `${Cookies.get("Authorization")}`,
+          },
+        }
+      );
+      const data = res.data;
       if (!data.success) {
         throw new Error("Failed to fetch data");
       }

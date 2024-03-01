@@ -14,15 +14,12 @@ const Beauty = () => {
   if (isAuth) {
     if (data.length <= 0) {
       const fetchData = async () => {
-        const response = await axios.get(
-          "/api/assets/beauty",
-          {
-            headers: {
-              authorization: `${Cookies.get("Authorization")}`,
-            },
-          }
-        );
-        const data =response.data
+        const response = await axios.get("/api/assets/beauty", {
+          headers: {
+            authorization: `${Cookies.get("Authorization")}`,
+          },
+        });
+        const data = response.data;
         setData(data.response.resources);
       };
       fetchData();

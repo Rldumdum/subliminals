@@ -5,7 +5,9 @@ const jwt = require("jsonwebtoken");
 const account_sign_in = async (req, res, next) => {
   const user = await User.findOne({ username: req.body.username });
   if (!user) {
-    return res.json({ message: "Username does not exist, create an account instead?" });
+    return res.json({
+      message: "Username does not exist, create an account instead?",
+    });
   }
   try {
     const match = await bcrypt.compare(req.body.password, user.password);
@@ -62,6 +64,7 @@ const account_sign_up = async (req, res, next) => {
   }
 };
 const account_sign_out = async (req, res, next) => {
+  console.log(req.headers.authorization);
   if (req.headers && req.headers.authorization) {
     const token = req.headers.authorization.split(" ")[1];
     if (!token) {
@@ -70,12 +73,14 @@ const account_sign_out = async (req, res, next) => {
         .json({ success: false, message: "Authorization Failed" });
     }
 
-    const tokens = req.user.tokens;
+    const tokens = req?.user?.tokens;
 
     const newTokens = tokens.filter((t) => t.accessToken !== token);
 
     await User.findByIdAndUpdate(req.user._id, { tokens: newTokens });
     res.json({ success: true, message: "Signed out successfully" });
+  } else {
+    res.json({ success: false, message: "Authorization Failed" });
   }
 };
 

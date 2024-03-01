@@ -38,7 +38,7 @@ const AuthForm = ({ setIsAuth, modalOpen }: any) => {
     const { username, password } = data;
     const fetchData = async () => {
       const res = await axios.post(
-        "/api/account/signIn",
+        "http://localhost:3001/api/account/signIn",
         { username, password },
         {
           headers: {
@@ -47,7 +47,7 @@ const AuthForm = ({ setIsAuth, modalOpen }: any) => {
         }
       );
 
-      const data =  res.data;
+      const data = res.data;
       console.log({ data });
       Cookies.set("Authorization", `Bearer ${data.accessToken}`);
       if (data.success) {
