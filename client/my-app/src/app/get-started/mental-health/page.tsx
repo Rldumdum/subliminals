@@ -14,21 +14,18 @@ const Beauty = () => {
   if (isAuth) {
     if (data.length <= 0) {
       const fetchData = async () => {
-        const response = await axios.get(
-          "/api/assets/mental-health",
-          {
-            headers: {
-              authorization: `${Cookies.get("Authorization")}`,
-            },
-          }
-        );
-        const data = response.data
+        const response = await axios.get("/api/assets/mental-health", {
+          headers: {
+            authorization: `${Cookies.get("Authorization")}`,
+          },
+        });
+        const data = response.data;
         setData(data.response.resources);
       };
       fetchData();
     }
   } else {
-    console.log("you don't have access to the data");
+    // console.log("you don't have access to the data");
   }
   const handleChapterClick = (chapter: number) => {
     setSelected(chapter);

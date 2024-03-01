@@ -7,7 +7,7 @@ import axios from "axios";
 const Logout = () => {
   const { isAuth, setIsAuth, setData } = useContext(AppContext);
   const LogoutHandler = async (e: any) => {
-    console.log("logging out");
+    // console.log("logging out");
     e.preventDefault();
     const res = await axios.post(
       "/api/account/signOut",
@@ -19,12 +19,12 @@ const Logout = () => {
       }
     );
     const data = res.data;
-    console.log("this is the data", data);
+    // console.log("this is the data", data);
     if (!data.success) {
       throw new Error("Failed to fetch data");
     }
     if (data.success) {
-      console.log(data.success);
+      // console.log(data.success);
       Cookies.remove("Authorization");
       setIsAuth(false);
       setData([]);

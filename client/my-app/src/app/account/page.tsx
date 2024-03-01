@@ -11,7 +11,7 @@ const Authorization = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.post(
-        "http://localhost:3001/api/account/verify",
+        "/api/account/verify",
         {},
         {
           headers: {

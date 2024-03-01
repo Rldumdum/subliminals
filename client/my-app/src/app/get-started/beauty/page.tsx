@@ -25,7 +25,7 @@ const Beauty = () => {
       fetchData();
     }
   } else {
-    console.log("you don't have access to the data");
+    // console.log("you don't have access to the data");
   }
   const handleChapterClick = (chapter: number) => {
     setSelected(chapter);
