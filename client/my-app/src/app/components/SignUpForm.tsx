@@ -138,7 +138,7 @@ const SignUpForm = ({ setIsAuth, modalClose, modalIsOpen }: any) => {
       if (data) {
         setIsSubmitting(false);
       }
-      console.log(data);
+      // console.log(data);
       if (data.username) {
         setAccountCreated(true);
         setTimeout(() => {

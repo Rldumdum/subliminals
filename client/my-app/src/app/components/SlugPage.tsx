@@ -11,7 +11,7 @@ const data1 = Array.from({ length: 10 }, (_, i) => i + 1);
 // const days = Array.from(Array(31).keys());A
 const SlugPage = ({ tab }: any) => {
   const params = useParams();
-  console.log(params);
+  // console.log(params);
   const { selected, setSelected, data, isAuth, setData } =
     useContext(AppContext);
   const handleChapterClick = (chapter: number) => {
@@ -31,7 +31,7 @@ const SlugPage = ({ tab }: any) => {
       fetchData();
     }
   } else {
-    console.log("you don't have access to the data");
+    // console.log("you don't have access to the data");
   }
   let page: string = Array.isArray(params.slug)
     ? params.slug[1]
